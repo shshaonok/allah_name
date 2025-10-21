@@ -1,0 +1,930 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>আল্লাহর ৯৯টি পবিত্র নাম - আসমাউল হুসনা</title>
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;600;700&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* CSS Reset and Variables */
+        :root {
+            --color-primary: #046A38; /* Deep Islamic Green */
+            --color-secondary: #FFD700; /* Gold */
+            --color-text-light: #F8F8F8;
+            --color-background: #000;
+            --color-card-bg: rgba(255, 255, 255, 0.08);
+            --color-border: rgba(255, 255, 255, 0.2);
+            --color-accent: #1DD1A1;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Hind Siliguri', sans-serif;
+            color: var(--color-text-light);
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--color-primary), #000000 70%);
+            background-attachment: fixed;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Custom Scrollbar */
+        body::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        body::-webkit-scrollbar-thumb {
+            background-color: var(--color-secondary);
+            border-radius: 10px;
+        }
+
+        body::-webkit-scrollbar-track {
+            background: var(--color-primary);
+        }
+
+        /* Header Styling */
+        .header {
+            text-align: center;
+            padding: 40px 20px 20px;
+            background: rgba(0, 0, 0, 0.5);
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+            border-bottom: 3px solid var(--color-secondary);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            color: var(--color-secondary);
+            margin-bottom: 5px;
+            text-shadow: 2px 2px var(--color-primary);
+        }
+
+        .header h2 {
+            font-size: 1.2rem;
+            font-weight: 400;
+            margin-bottom: 15px;
+        }
+
+        .name-counter {
+            font-size: 1.1rem;
+            background: var(--color-secondary);
+            color: var(--color-primary);
+            display: inline-block;
+            padding: 5px 15px;
+            border-radius: 5px;
+            font-weight: 700;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Main Content Layout */
+        .main-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar/Controls */
+        .sidebar {
+            background: var(--color-card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            order: 2; /* Move below main content on small screens */
+        }
+        
+        .control-group {
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed var(--color-border);
+        }
+
+        .control-group:last-child {
+            border-bottom: none;
+        }
+
+        .control-group h3 {
+            font-size: 1.2rem;
+            color: var(--color-secondary);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .control-group h3 i {
+            margin-right: 8px;
+        }
+
+        .controls button {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            border: 2px solid var(--color-secondary);
+            padding: 10px 15px;
+            margin: 5px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            font-weight: 600;
+        }
+
+        .controls button:hover:not(:disabled) {
+            background-color: var(--color-accent);
+            transform: translateY(-2px);
+        }
+
+        .controls button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Slider Section */
+        .slider-section {
+            order: 1;
+        }
+
+        .slider-container {
+            position: relative;
+            height: 350px;
+            background: var(--color-card-bg);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .slide.active {
+            opacity: 1;
+        }
+
+        .slide .arabic-name {
+            font-family: 'Amiri', serif;
+            font-size: 5rem;
+            color: var(--color-secondary);
+            line-height: 1.2;
+            margin-bottom: 10px;
+            text-shadow: 3px 3px var(--color-primary);
+        }
+        
+        .slide .serial-number {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .slide .bangla-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .slide .meaning {
+            font-size: 1.5rem;
+            color: var(--color-text-light);
+            font-style: italic;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .slider-nav button {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(0, 0, 0, 0.5);
+            color: var(--color-secondary);
+            border: none;
+            padding: 15px 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            z-index: 10;
+            transition: background-color 0.3s;
+        }
+
+        .slider-nav button:hover {
+            background: rgba(0, 0, 0, 0.8);
+        }
+
+        #prev-slide { left: 0; border-top-right-radius: 10px; border-bottom-right-radius: 10px; }
+        #next-slide { right: 0; border-top-left-radius: 10px; border-bottom-left-radius: 10px; }
+
+        .slide-indicators {
+            text-align: center;
+            margin-top: 10px;
+        }
+
+        .indicator {
+            display: inline-block;
+            width: 10px;
+            height: 10px;
+            background: var(--color-border);
+            border-radius: 50%;
+            margin: 0 4px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .indicator.active {
+            background: var(--color-secondary);
+            transform: scale(1.2);
+        }
+
+        /* Quote Section */
+        .quote-section {
+            background: var(--color-card-bg);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(5px);
+            text-align: center;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .quote-text {
+            font-style: italic;
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .quote-reference {
+            font-size: 0.9rem;
+            color: var(--color-accent);
+            font-weight: 600;
+        }
+
+        .quote-nav button {
+            background: none;
+            border: none;
+            color: var(--color-secondary);
+            font-size: 1.2rem;
+            padding: 5px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .quote-nav button:hover {
+            color: var(--color-accent);
+        }
+
+        #prev-quote { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); }
+        #next-quote { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); }
+
+        /* Grid View Section */
+        .grid-view-section {
+            order: 3;
+            grid-column: 1 / -1; /* Full width */
+            padding-top: 20px;
+        }
+
+        .grid-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        #search-box {
+            padding: 10px;
+            border-radius: 8px;
+            border: 2px solid var(--color-secondary);
+            background: rgba(0, 0, 0, 0.7);
+            color: var(--color-text-light);
+            font-size: 1rem;
+            flex-grow: 1;
+            max-width: 400px;
+        }
+
+        .view-switch button {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            border: 1px solid var(--color-secondary);
+            padding: 8px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .view-switch button.active, .view-switch button:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+
+        #names-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 15px;
+            padding: 10px 0;
+        }
+
+        .name-card {
+            background: var(--color-card-bg);
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border-left: 5px solid var(--color-secondary);
+        }
+
+        .name-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.7);
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        .card-number {
+            font-size: 1.5rem;
+            color: var(--color-secondary);
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+
+        .card-arabic {
+            font-family: 'Amiri', serif;
+            font-size: 2.2rem;
+            color: var(--color-accent);
+            text-align: right;
+            line-height: 1;
+        }
+
+        .card-bangla {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-top: 5px;
+        }
+
+        .card-meaning {
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* List View Styling */
+        .list-view {
+            grid-template-columns: 1fr !important;
+        }
+
+        .list-view .name-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 20px;
+        }
+
+        .list-view .card-details {
+            display: flex;
+            flex-direction: column;
+            text-align: left;
+            flex-grow: 1;
+            margin-left: 15px;
+        }
+
+        .list-view .card-arabic {
+            font-size: 2rem;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.5);
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.6);
+            border-top: 1px solid var(--color-border);
+        }
+        
+        /* Media Queries for Responsiveness */
+        @media (min-width: 768px) {
+            .header h1 {
+                font-size: 3.5rem;
+            }
+
+            .main-container {
+                grid-template-columns: 3fr 1fr; /* Slider + Sidebar */
+            }
+
+            .sidebar {
+                order: 3; /* Move sidebar to the right */
+            }
+
+            .slider-section {
+                order: 1;
+            }
+
+            .quote-section {
+                order: 2;
+            }
+            
+            .grid-view-section {
+                order: 4;
+            }
+            
+            .slide .arabic-name {
+                font-size: 6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .slide .arabic-name {
+                font-size: 4rem;
+            }
+            
+            .slide .bangla-name {
+                font-size: 1.5rem;
+            }
+            
+            .slide .meaning {
+                font-size: 1.2rem;
+            }
+            
+            .slider-container {
+                height: 300px;
+            }
+            
+            .grid-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            
+            #search-box {
+                max-width: none;
+            }
+            
+            .list-view .name-card {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .list-view .card-details {
+                margin-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>আল্লাহর ৯৯টি পবিত্র নাম</h1>
+        <h2>আসমাউল হুসনা - বাংলা, আরবি ও অর্থসহ</h2>
+        <div class="name-counter">মোট নাম: <span id="total-names">৯৯টি</span></div>
+    </div>
+
+    <div class="main-container">
+        <section class="slider-section">
+            <div class="slider-container" id="slider-container">
+                </div>
+            <div class="slider-nav">
+                <button id="prev-slide"><i class="fas fa-chevron-left"></i></button>
+                <button id="next-slide"><i class="fas fa-chevron-right"></i></button>
+            </div>
+            <div class="slide-indicators" id="slide-indicators">
+                </div>
+        </section>
+
+        <aside class="sidebar">
+            <div class="control-group">
+                <h3><i class="fas fa-sliders-h"></i> স্লাইডশো কন্ট্রোল</h3>
+                <div class="controls">
+                    <button id="toggle-autoplay"><i class="fas fa-play"></i> শুরু/বিরতি</button>
+                    <button id="shuffle-names"><i class="fas fa-random"></i> এলোমেলো</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3><i class="fas fa-tachometer-alt"></i> গতি কন্ট্রোল</h3>
+                <div class="controls speed-controls">
+                    <button data-speed="2000" id="speed-slow">ধীর</button>
+                    <button data-speed="4000" id="speed-medium" class="active">মধ্যম</button>
+                    <button data-speed="6000" id="speed-fast">দ্রুত</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <h3><i class="fas fa-info-circle"></i> বর্তমান তথ্য</h3>
+                <p>বর্তমান নাম: <span id="current-slide-info">১/৯৯</span></p>
+                <p>ভিউ কাউন্টার: <span id="view-counter">০</span></p>
+            </div>
+        </aside>
+        
+        <section class="quote-section">
+            <h3 style="color: var(--color-secondary); margin-bottom: 15px;"><i class="fas fa-quran"></i> ইসলামিক উক্তি</h3>
+            <div class="quote-content">
+                <p class="quote-text" id="quote-text"></p>
+                <p class="quote-reference" id="quote-reference"></p>
+            </div>
+            <div class="quote-nav">
+                <button id="prev-quote"><i class="fas fa-angle-left"></i></button>
+                <button id="next-quote"><i class="fas fa-angle-right"></i></button>
+            </div>
+        </section>
+
+
+        <section class="grid-view-section">
+            <h2><i class="fas fa-list-alt"></i> সব নাম একসাথে দেখুন</h2>
+            <div class="grid-header">
+                <input type="text" id="search-box" placeholder="নাম বা অর্থ দিয়ে খুঁজুন...">
+                <div class="view-switch">
+                    <button id="grid-view-btn" class="active"><i class="fas fa-th-large"></i> গ্রিড</button>
+                    <button id="list-view-btn"><i class="fas fa-list"></i> লিস্ট</button>
+                </div>
+            </div>
+
+            <div id="names-grid" class="names-grid">
+                </div>
+        </section>
+
+    </div>
+
+    <footer class="footer">
+        © ২০২৪ | আসমাউল হুসনা ওয়েবসাইট। ইসলামিক ভাবগাম্ভীর্য বজায় রেখে তৈরি।
+    </footer>
+
+    <script>
+        // Data Structure for 99 Names (Asmaul Husna)
+        const names = [
+            { arabic: "اَللّٰهُ", bangla: "আল্লাহ্", meaning: "একমাত্র উপাস্য" },
+            { arabic: "الرَّحْمَنُ", bangla: "আর-রহমান", meaning: "পরম করুণাময়" },
+            { arabic: "الرَّحِيمُ", bangla: "আর-রহীম", meaning: "অতি দয়ালু" },
+            { arabic: "الْمَلِكُ", bangla: "আল-মালিক", meaning: "সর্বাধিপতি" },
+            { arabic: "الْقُدُّوسُ", bangla: "আল-কুদ্দুস", meaning: "পবিত্র ও নিষ্কলুষ" },
+            { arabic: "السَّلَامُ", bangla: "আস-সালাম", meaning: "শান্তিদাতা ও ত্রুটিমুক্ত" },
+            { arabic: "الْمُؤْمِنُ", bangla: "আল-মু'মিন", meaning: "নিরাপত্তাদাতা ও বিশ্বাসী" },
+            { arabic: "الْمُهَيْمِنُ", bangla: "আল-মুহাইমিন", meaning: "রক্ষক ও পর্যবেক্ষক" },
+            { arabic: "الْعَزِيزُ", bangla: "আল-আযীয", meaning: "পরাক্রমশালী ও মহিমান্বিত" },
+            { arabic: "الْجَبَّارُ", bangla: "আল-জাব্বার", meaning: "মহাশক্তিধর ও নিয়ন্ত্রক" },
+            { arabic: "الْمُتَكَبِّرُ", bangla: "আল-মুতাকাব্বির", meaning: "অহংকারের অধিকারী ও শ্রেষ্ঠ" },
+            { arabic: "الْخَالِقُ", bangla: "আল-খালিক্ব", meaning: "সৃষ্টিকর্তা" },
+            { arabic: "الْبَارِئُ", bangla: "আল-বারী", meaning: "সঠিকরূপে সৃষ্টিকারী" },
+            { arabic: "الْمُصَوِّرُ", bangla: "আল-মুছাওবির", meaning: "আকারদানকারী" },
+            { arabic: "الْغَفَّارُ", bangla: "আল-গাফ্ফার", meaning: "ক্ষমাশীল" },
+            { arabic: "الْقَهَّارُ", bangla: "আল-ক্বাহার", meaning: "প্রবল ক্ষমতাশীল" },
+            { arabic: "الْوَهَّابُ", bangla: "আল-ওয়াহ্হাব", meaning: "সবকিছু দানকারী" },
+            { arabic: "الرَّزَّاقُ", bangla: "আর-রাযযাক্ব", meaning: "রিজিকদাতা" },
+            { arabic: "الْفَتَّاحُ", bangla: "আল-ফাত্তাহ্", meaning: "বিজয় দানকারী" },
+            { arabic: "الْعَلِيمُ", bangla: "আল-আলীম", meaning: "সর্বজ্ঞ" },
+            { arabic: "الْقَابِضُ", bangla: "আল-ক্বাবিদ", meaning: "সংকোচনকারী" },
+            { arabic: "الْبَاسِطُ", bangla: "আল-বাসিত", meaning: "প্রসারনকারী" },
+            { arabic: "الْخَافِضُ", bangla: "আল-খাফিদ", meaning: "অবনমনকারী" },
+            { arabic: "الرَّافِعُ", bangla: "আর-রাফি'", meaning: "উন্নয়নকারী" },
+            { arabic: "الْمُعِزُّ", bangla: "আল-মু'ইয", meaning: "সম্মান প্রদানকারী" },
+            { arabic: "الْمُذِلُّ", bangla: "আল-মুযিল", meaning: "অপমানকারী" },
+            { arabic: "السَّمِيعُ", bangla: "আস-সামি", meaning: "সব কিছু শ্রবণকারী" },
+            { arabic: "الْبَصِيرُ", bangla: "আল-বাসীর", meaning: "সব কিছু দর্শনকারী" },
+            { arabic: "الْحَكَمُ", bangla: "আল-হাকাম", meaning: "বিচারক" },
+            { arabic: "الْعَدْلُ", bangla: "আল-আদল", meaning: "ন্যায়বিচারক" },
+            { arabic: "اللَّطِيفُ", bangla: "আল-লাতীফ", meaning: "সূক্ষ্মদর্শী, কৃপাময়" },
+            { arabic: "الْخَبِيرُ", bangla: "আল-খাবীর", meaning: "সব খবর রাখেন যিনি" },
+            { arabic: "الْحَلِيمُ", bangla: "আল-হালীম", meaning: "ধৈর্যশীল" },
+            { arabic: "الْعَظِيمُ", bangla: "আল-আযীম", meaning: "মহানুভব" },
+            { arabic: "الْغَفُورُ", bangla: "আল-গাফূর", meaning: "অত্যন্ত ক্ষমাশীল" },
+            { arabic: "الشَّكُورُ", bangla: "আশ-শাকূর", meaning: "গুণগ্রাহী" },
+            { arabic: "الْعَلِيُّ", bangla: "আল-আ'লিয়", meaning: "সর্বোচ্চ" },
+            { arabic: "الْكَبِيرُ", bangla: "আল-কাবীর", meaning: "সর্ববৃহৎ" },
+            { arabic: "الْحَفِيظُ", bangla: "আল-হাফীয", meaning: "সংরক্ষণকারী" },
+            { arabic: "الْمُقِيتُ", bangla: "আল-মুক্বীত", meaning: "জীবিকা বা খাদ্য প্রদানকারী" },
+            { arabic: "الْحَسِيبُ", bangla: "আল-হাসীব", meaning: "হিসাব গ্রহণকারী" },
+            { arabic: "الْجَلِيلُ", bangla: "আল-জালীল", meaning: "মহিমান্বিত" },
+            { arabic: "الْكَرِيمُ", bangla: "আল-কারীম", meaning: "দানশীল" },
+            { arabic: "الرَّقِيبُ", bangla: "আর-রক্বীব", meaning: "পর্যবেক্ষণকারী" },
+            { arabic: "الْمُجِيبُ", bangla: "আল-মুজীব", meaning: "উত্তরদাতা" },
+            { arabic: "الْوَاسِعُ", bangla: "আল-ওয়াসি", meaning: "সর্বব্যাপী" },
+            { arabic: "الْحَكِيمُ", bangla: "আল-হাকীম", meaning: "প্রজ্ঞাময়" },
+            { arabic: "الْوَدُودُ", bangla: "আল-ওয়াদূদ", meaning: "স্নেহশীল" },
+            { arabic: "الْمَجِيدُ", bangla: "আল-মাজীদ", meaning: "মহাগৌরবের অধিকারী" },
+            { arabic: "الْبَاعِثُ", bangla: "আল-বা'ইস", meaning: "পুনরুত্থানকারী" },
+            { arabic: "الشَّهِيدُ", bangla: "আশ-শাহীদ", meaning: "সাক্ষী" },
+            { arabic: "الْحَقُّ", bangla: "আল-হাক্ক", meaning: "সত্য" },
+            { arabic: "الْوَكِيلُ", bangla: "আল-ওয়াকীল", meaning: "তত্ত্বাবধানকারী" },
+            { arabic: "الْقَوِيُّ", bangla: "আল-ক্বাউইয়ু", meaning: "শক্তির অধিকারী" },
+            { arabic: "الْمَتِينُ", bangla: "আল-মাতীন", meaning: "সুদৃঢ়" },
+            { arabic: "الْوَلِيُّ", bangla: "আল-ওয়ালিয়্যু", meaning: "অভিভাবক" },
+            { arabic: "الْحَمِيدُ", bangla: "আল-হামীদ", meaning: "প্রশংসিত" },
+            { arabic: "الْمُحْصِي", bangla: "আল-মুহসী", meaning: "হিসাব গ্রহণকারী" },
+            { arabic: "الْمُبْدِئُ", bangla: "আল-মুবদি", meaning: "প্রথমবার সৃষ্টিকর্তা" },
+            { arabic: "الْمُعِيدُ", bangla: "আল-মুঈদ", meaning: "পুনঃসৃষ্টিকর্তা" },
+            { arabic: "الْمُحْيِي", bangla: "আল-মুহয়ী", meaning: "জীবনদানকারী" },
+            { arabic: "الْمُمِيتُ", bangla: "আল-মুমীত", meaning: "মৃত্যুদানকারী" },
+            { arabic: "الْحَيُّ", bangla: "আল-হাইয়্যু", meaning: "চিরঞ্জীব" },
+            { arabic: "الْقَيُّومُ", bangla: "আল-কাইয়্যুম", meaning: "চিরস্থায়ী ও সবকিছুর ধারক" },
+            { arabic: "الْوَاجِدُ", bangla: "আল-ওয়াজিদ", meaning: "অনুসন্ধানকারী" },
+            { arabic: "الْمَاجِدُ", bangla: "আল-মাজিদ", meaning: "মহত্ত্বের অধিকারী" },
+            { arabic: "الْوَاحِدُ", bangla: "আল-ওয়াহিদ", meaning: "এক ও অদ্বিতীয়" },
+            { arabic: "الصَّمَدُ", bangla: "আছ-ছামাদ", meaning: "অভাবমুক্ত ও নিরপেক্ষ" },
+            { arabic: "الْقَادِرُ", bangla: "আল-ক্বাদির", meaning: "ক্ষমতাবান" },
+            { arabic: "الْمُقْتَدِرُ", bangla: "আল-মুক্বতাদির", meaning: "সর্বশক্তিমান" },
+            { arabic: "الْمُقَدِّمُ", bangla: "আল-মুক্বাদ্দিম", meaning: "অগ্রসারক" },
+            { arabic: "الْمُؤَخِّرُ", bangla: "আল-মুআখ্খির", meaning: "পশ্চাদসারক" },
+            { arabic: "الْأَوَّلُ", bangla: "আল-আউয়াল", meaning: "প্রথম" },
+            { arabic: "الْآخِرُ", bangla: "আল-আখির", meaning: "শেষ" },
+            { arabic: "الظَّاهِرُ", bangla: "আয-যাহির", meaning: "প্রকাশ্য" },
+            { arabic: "الْبَاطِنُ", bangla: "আল-বাতিন", meaning: "গুপ্ত" },
+            { arabic: "الْوَالِي", bangla: "আল-ওয়ালী", meaning: "কার্যনির্বাহক" },
+            { arabic: "الْمُتَعَالِي", bangla: "আল-মুতাআ'লী", meaning: "সুউচ্চ" },
+            { arabic: "الْبَرُّ", bangla: "আল-বার্", meaning: "কল্যাণকারী" },
+            { arabic: "التَّوَّابُ", bangla: "আত-তাওয়াব", meaning: "তওবা কবুলকারী" },
+            { arabic: "الْمُنْتَقِمُ", bangla: "আল-মুনতাক্বিম", meaning: "প্রতিশোধ গ্রহণকারী" },
+            { arabic: "الْعَفُوُّ", bangla: "আল-আ'ফূ", meaning: "ক্ষমাকারী" },
+            { arabic: "الرَّؤُوفُ", bangla: "আর-রউফ", meaning: "অতিশয় মেহেরবান" },
+            { arabic: "مَالِكُ الْمُلْكِ", bangla: "মালিকুল-মুলক", meaning: "বিশ্বের বাদশাহ" },
+            { arabic: "ذُو الْجَلَالِ وَالْإِكْرَامِ", bangla: "যুল জালালি ওয়াল ইকরাম", meaning: "মহত্ত্ব ও সম্মানের অধিকারী" },
+            { arabic: "الْمُقْسِطُ", bangla: "আল-মুক্বসিত", meaning: "ন্যায়পরায়ণ" },
+            { arabic: "الْجَامِعُ", bangla: "আল-জামি", meaning: "সমবেতকারী" },
+            { arabic: "الْغَنِيُّ", bangla: "আল-গানী", meaning: "ঐশ্বর্যবান" },
+            { arabic: "الْمُغْنِي", bangla: "আল-মুগনী", meaning: "প্রাচুর্যদানকারী" },
+            { arabic: "الْمَانِعُ", bangla: "আল-মানি", meaning: "নিষেধকারী" },
+            { arabic: "الضَّارُّ", bangla: "আয-য্বার", meaning: "ক্ষতি সাধনকারী" },
+            { arabic: "النَّافِعُ", bangla: "আন-নাফি", meaning: "উপকারকারী" },
+            { arabic: "النُّورُ", bangla: "আন-নূর", meaning: "আলো" },
+            { arabic: "الْهَادِي", bangla: "আল-হাদী", meaning: "পথ প্রদর্শনকারী" },
+            { arabic: "الْبَدِيعُ", bangla: "আল-বাদী", meaning: "অতুলনীয় উদ্ভাবক" },
+            { arabic: "الْبَاقِي", bangla: "আল-বাকী", meaning: "চিরস্থায়ী" },
+            { arabic: "الْوَارِثُ", bangla: "আল-ওয়ারিস", meaning: "উত্তরাধিকারী" },
+            { arabic: "الرَّشِيدُ", bangla: "আর-রাশীদ", meaning: "সঠিক পথপ্রদর্শক" },
+            { arabic: "الصَّبُورُ", bangla: "আছ-ছাবূর", meaning: "অত্যন্ত ধৈর্যশীল" }
+        ];
+
+        // Data Structure for Islamic Quotes
+        const quotes = [
+            { text: "আল্লাহর নামসমূহের মধ্যে রয়েছে অনেক বরকত। যে এগুলো মুখস্থ করবে, সে জান্নাতে প্রবেশ করবে।", reference: "সহীহ বুখারী, হাদীস নং ২৭৩৬" },
+            { text: "তাঁর জন্য রয়েছে সর্বোত্তম ও সুন্দর নামসমূহ। তিনি যাঁর জন্য যা সহজ করেন।", reference: "সূরা আল-আ'রাফ, আয়াত: ১৮০" },
+            { text: "আল্লাহর জন্য সুন্দর সুন্দর নাম রয়েছে। তোমরা সে সব নামে তাঁকে ডাকো।", reference: "সূরা ত্বহা, আয়াত: ৮" },
+            { text: "যে ব্যক্তি আল্লাহর নামসমূহ শিখে, সে নিজেকে আল্লাহ সম্পর্কে জানার মাধ্যমে উত্তম ইবাদতে নিয়োজিত করে।", reference: "ইসলামিক স্কলারের উক্তি" },
+            { text: "আল্লাহর স্মরণ ও তার নামসমূহের চর্চা অন্তরের প্রশান্তি দান করে।", reference: "কুরআনের শিক্ষা" },
+        ];
+
+        // --- Global Variables ---
+        let currentSlideIndex = 0;
+        let autoplayInterval;
+        let slideSpeed = 4000; // Default: 4 seconds
+        let isAutoplaying = true;
+        let viewCounter = 0;
+        let currentQuoteIndex = 0;
+        let shuffledNames = [...names]; // Start with the original order
+
+        // --- DOM Elements ---
+        const sliderContainer = document.getElementById('slider-container');
+        const indicatorsContainer = document.getElementById('slide-indicators');
+        const prevSlideBtn = document.getElementById('prev-slide');
+        const nextSlideBtn = document.getElementById('next-slide');
+        const toggleAutoplayBtn = document.getElementById('toggle-autoplay');
+        const speedControls = document.querySelector('.speed-controls');
+        const shuffleBtn = document.getElementById('shuffle-names');
+        const namesGrid = document.getElementById('names-grid');
+        const searchBox = document.getElementById('search-box');
+        const gridViewBtn = document.getElementById('grid-view-btn');
+        const listViewBtn = document.getElementById('list-view-btn');
+        const quoteTextElem = document.getElementById('quote-text');
+        const quoteRefElem = document.getElementById('quote-reference');
+        const prevQuoteBtn = document.getElementById('prev-quote');
+        const nextQuoteBtn = document.getElementById('next-quote');
+        const currentSlideInfoElem = document.getElementById('current-slide-info');
+        const viewCounterElem = document.getElementById('view-counter');
+
+
+        // --- Core Functions ---
+
+        // 1. Slider Setup
+        function createSlides() {
+            sliderContainer.innerHTML = '';
+            indicatorsContainer.innerHTML = '';
+            
+            shuffledNames.forEach((name, index) => {
+                // Create Slide
+                const slide = document.createElement('div');
+                slide.className = `slide ${index === currentSlideIndex ? 'active' : ''}`;
+                slide.setAttribute('data-index', index);
+                slide.innerHTML = `
+                    <span class="serial-number">${index + 1}/99</span>
+                    <p class="arabic-name">${name.arabic}</p>
+                    <p class="bangla-name">${name.bangla}</p>
+                    <p class="meaning">${name.meaning}</p>
+                `;
+                sliderContainer.appendChild(slide);
+
+                // Create Indicator
+                const indicator = document.createElement('span');
+                indicator.className = `indicator ${index === currentSlideIndex ? 'active' : ''}`;
+                indicator.setAttribute('data-slide-to', index);
+                indicator.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(indicator);
+            });
+            updateCounter();
+        }
+        
+        // 2. Navigation Logic
+        function goToSlide(index) {
+            currentSlideIndex = (index + shuffledNames.length) % shuffledNames.length;
+            const slides = document.querySelectorAll('.slide');
+            const indicators = document.querySelectorAll('.indicator');
+
+            slides.forEach((slide, i) => {
+                slide.classList.remove('active');
+                if (i === currentSlideIndex) {
+                    slide.classList.add('active');
+                    if (slide.parentElement.parentElement.classList.contains('slider-section')) {
+                        // Only count views when manually navigating or via autoplay
+                        viewCounter++;
+                    }
+                }
+            });
+
+            indicators.forEach((indicator, i) => {
+                indicator.classList.toggle('active', i === currentSlideIndex);
+            });
+            
+            updateCounter();
+        }
+
+        function nextSlide() {
+            goToSlide(currentSlideIndex + 1);
+        }
+
+        function prevSlide() {
+            goToSlide(currentSlideIndex - 1);
+        }
+
+        function updateCounter() {
+             currentSlideInfoElem.textContent = `${currentSlideIndex + 1}/99`;
+             viewCounterElem.textContent = viewCounter;
+        }
+
+        // 3. Autoplay Control
+        function startAutoplay() {
+            if (autoplayInterval) clearInterval(autoplayInterval);
+            autoplayInterval = setInterval(nextSlide, slideSpeed);
+            toggleAutoplayBtn.innerHTML = '<i class="fas fa-pause"></i> বিরতি';
+            toggleAutoplayBtn.classList.add('active');
+            isAutoplaying = true;
+        }
+
+        function stopAutoplay() {
+            clearInterval(autoplayInterval);
+            toggleAutoplayBtn.innerHTML = '<i class="fas fa-play"></i> শুরু করুন';
+            toggleAutoplayBtn.classList.remove('active');
+            isAutoplaying = false;
+        }
+
+        function toggleAutoplay() {
+            if (isAutoplaying) {
+                stopAutoplay();
+            } else {
+                startAutoplay();
+            }
+        }
+        
+        // 4. Shuffle Names
+        function shuffleNamesArray() {
+            // Fisher-Yates shuffle algorithm
+            for (let i = names.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [names[i], names[j]] = [names[j], names[i]];
+            }
+            shuffledNames = [...names]; // Update the shuffled array
+            currentSlideIndex = 0; // Reset slider position
+            
+            createSlides();
+            renderGrid(shuffledNames);
+            
+            if(isAutoplaying) {
+                startAutoplay(); // Restart autoplay with new order
+            }
+        }
+
+        // 5. Grid View Setup and Search
+        function renderGrid(data) {
+            namesGrid.innerHTML = '';
+            
+            data.forEach((name, index) => {
+                const globalIndex = names.indexOf(names.find(n => n.arabic === name.arabic)); // Find original index
+                const card = document.createElement('div');
+                card.className = 'name-card';
+                card.setAttribute('data-index', globalIndex);
+                card.innerHTML = `
+                    <p class="card-number">${globalIndex + 1}</p>
+                    <div class="card-details">
+                        <p class="card-arabic">${name.arabic}</p>
+                        <p class="card-bangla">${name.bangla}</p>
+                        <p class="card-meaning">${name.meaning}</p>
+                    </div>
+                `;
+                card.addEventListener('click', () => {
+                    // Find the current position of the name in the *shuffled* array
+                    const slideIndex = shuffledNames.findIndex(n => n.arabic === name.arabic);
+                    if (slideIndex !== -1) {
+                        goToSlide(slideIndex);
+                        window.scrollTo({ top: 0, behavior: 'smooth' }); // Scroll to top for slider
+                    }
+                });
+                namesGrid.appendChild(card);
+            });
+        }
+        
+        function handleSearch() {
+            const query = searchBox.value.toLowerCase().trim();
+            if (!query) {
+                renderGrid(shuffledNames);
+                return;
+            }
+
+            const filtered = shuffledNames.filter(name => 
+                name.bangla.toLowerCase().includes(query) ||
+                name.arabic.includes(query) ||
+                name.meaning.toLowerCase().includes(query)
+            );
+            
+            renderGrid(filtered);
+        }
+
+        // 6. Quote Section
+        function displayQuote(index) {
+            currentQuoteIndex = (index + quotes.length) % quotes.length;
+            const quote = quotes[currentQuoteIndex];
+            quoteTextElem.textContent = `"${quote.text}"`;
+            quoteRefElem.textContent = `- ${quote.reference}`;
+        }
+        
+        // 7. Event Listeners and Initialization
+        function init() {
+            // Set total name count
+            document.getElementById('total-names').textContent = `${names.length}টি`;
+            
+            // Initial render
+            createSlides();
+            renderGrid(shuffledNames);
+            displayQuote(currentQuoteIndex);
+            startAutoplay();
+            
+            // Slider Events
+            prevSlideBtn.addEventListener('click', prevSlide);
+            nextSlideBtn.addEventListener('click', nextSlide);
+            toggleAutoplayBtn.addEventListener('click', toggleAutoplay);
+            shuffleBtn.addEventListener('click', shuffleNamesArray);
+
+            // Speed Control Events
+            speedControls.querySelectorAll('button').forEach(button => {
+                button.addEventListener('click', function() {
+                    speedControls.querySelectorAll('button').forEach(btn => btn.classList.remove('active'));
+                    this.classList.add('active');
+                    slideSpeed = parseInt(this.getAttribute('data-speed'));
+                    if (isAutoplaying) {
+                        startAutoplay(); // Restart with new speed
+                    }
+                });
+            });
+
+            // Grid View Events
+            searchBox.addEventListener('input', handleSearch);
+            
+            gridViewBtn.addEventListener('click', () => {
+                namesGrid.classList.remove('list-view');
+                gridViewBtn.classList.add('active');
+                listViewBtn.classList.remove('active');
+            });
+
+            listViewBtn.addEventListener('click', () => {
+                namesGrid.classList.add('list-view');
+                listViewBtn.classList.add('active');
+                gridViewBtn.classList.remove('active');
+            });
+            
+            // Quote Navigation Events
+            prevQuoteBtn.addEventListener('click', () => displayQuote(currentQuoteIndex - 1));
+            nextQuoteBtn.addEventListener('click', () => displayQuote(currentQuoteIndex + 1));
+        }
+
+        // Initialize the website on page load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+</html>
